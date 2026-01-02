@@ -17,12 +17,29 @@
 #include "modules/platform.h"
 #include "modules/check-and-set.h"
 #include "modules/cursor.h"
-int check_platform() {
-	if (IS_LINUX != 1) {
-		printf("Sorry, this system is not supported.\nThis version only supports Linux for now.\n");
-	} 
+bool check_platform() {
+	#ifdef __linux__ 
+		printf("[!] Initial Linux check passed. [ Proceed ]\n");
+		return true;
+	#else 
+		// If we are NOT on Linux, this code is "seen" instead
+		printf("==============================================================\n");
+		printf("[!] ERROR: OS NOT SUPPORTED!\n");
+		printf("OpenPAS v0.07| (c) 2026 Ronald Nidera | Licensed under GPL v3\n\n");
+		printf("==============================================================\n");
+        printf("OpenPAS V0.07 is currently optimized for Linux (Ubuntu/Debian).\n");
+        printf("Press [ENTER] TWICE to exit\n");
+
+        while (getchar() != '\n');
+        getchar();		// wait until a key is pressed (ENTER)
+        return false;
+    #endif
 }
+
 int main() {
+	if (!check_platform()) { return 1; }	// check if we are on Linux, if not, go back to check_platform()'s else section
+
+	printf("\n=============================================================\n");
 	printf("Welcome to OpenPPS!\n");
 	printf("OpenPAS v0.07| (c) 2026 Ronald Nidera | Licensed under GPL v3\n");
 
@@ -30,15 +47,15 @@ int main() {
 	printf("\n[!] Starting game loop...\n");
 
 	while (!IsKeyPressed(KEY_END)) {
-	Vector2 mouse_pos = GetMousePosition();
+	Vector2 mouse_pos = GetMousePosition();		// while we are still in the game, keep fetching the current mouse position
 		BeginDrawing();
 		ClearBackground(WHITE);
 
-		draw_cursor((int)mouse_pos.x, (int)mouse_pos.y);
+		draw_cursor((int)mouse_pos.x, (int)mouse_pos.y);	// draw the cursor, cast the flaot values so it does not get corrupted
 		EndDrawing();
 	}
 	
-	printf("[!] Ending game loop...\n");	
+	printf("[!] Ending game loop...\n");	// stop all game activity after this point
 	CloseWindow();
 	return 0;
 }
