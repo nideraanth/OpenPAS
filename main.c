@@ -14,8 +14,14 @@
 #include "raylib.h"
 #include <stdio.h>
 
+#include "modules/platform.h"
 #include "modules/check-and-set.h"
 #include "modules/cursor.h"
+int check_platform() {
+	if (IS_LINUX != 1) {
+		printf("Sorry, this system is not supported.\nThis version only supports Linux for now.\n");
+	} 
+}
 int main() {
 	printf("Welcome to OpenPPS!\n");
 	printf("OpenPAS v0.07| (c) 2026 Ronald Nidera | Licensed under GPL v3\n");
