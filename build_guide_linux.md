@@ -31,3 +31,4 @@ gcc main.c modules/src/*.c -o openpas \
 
 ### 4. Execute it by running the binary.
 ./openpas 
+```
