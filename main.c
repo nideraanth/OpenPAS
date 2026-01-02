@@ -18,6 +18,7 @@
 #include "modules/cursor.h"
 int main() {
 	printf("Welcome to OpenPPS!\n");
+	printf("OpenPAS v0.07| (c) 2026 Ronald Nidera | Licensed under GPL v3\n");
 
 	check_and_set();
 	printf("\n[!] Starting game loop...\n");

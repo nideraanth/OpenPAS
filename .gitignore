@@ -1,5 +1,5 @@
 # Ignore the compiled binary (OpenPPS)
-openpps
+openpas
 *.o
 # Ignore temporary swap files
 *.swp
