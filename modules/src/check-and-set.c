@@ -11,6 +11,7 @@
  * give credit to the original author: Ronald Nidera.                          *
  *******************************************************************************/
 
+#include <stdlib.h>
 #include <stdio.h>
 #include "raylib.h"
 #include "../check-and-set.h"
@@ -27,6 +28,16 @@ void check_and_set(void) {
 	
 	printf("\nSetting resolution (%ix%i)...", DEFAULT_RESOLUTION_HORIZONTAL, DEFAULT_RESOLUTION_VERTICAL);
 	InitWindow(DEFAULT_RESOLUTION_HORIZONTAL, DEFAULT_RESOLUTION_VERTICAL, "OpenPPS");
+	if (!IsWindowReady()) {
+		printf("     [ FAIL ]\n");
+		printf("Error: OpenGL / WGL driver failed to initialize! \n");
+		printf("Tip: If on a VM, enable 3D acceleration or enable KVM.\n");
+		printf("Press [ENTER] twice to exit.");
+		while (getchar() != '\n');
+
+        getchar();
+		exit(1);
+	}
 	printf("     [  OK  ]\n"); //   11
 	
 	printf("Setting target framerate [%i]...", DEFAULT_FRAMERATE);
