@@ -14,5 +14,5 @@ git checkout experimental
 Build:
 
 ```
-gcc main.c modules/src/*.c -o openpas.exe -Iinclude -Llib/windows -lraylib -lgdi32
+gcc main.c modules/src/*.c -o openpas.exe -Iinclude -Llib/windows -lraylib -lgdi32 -lwinmm
 ```
