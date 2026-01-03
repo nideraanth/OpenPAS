@@ -36,7 +36,7 @@ void check_and_set(void) {
 		while (getchar() != '\n');
 
         getchar();
-		exit(1);
+		return;
 	}
 	printf("     [  OK  ]\n"); //   11
 	

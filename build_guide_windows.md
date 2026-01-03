@@ -14,5 +14,9 @@ git checkout experimental
 Build:
 
 ```
-gcc main.c modules/src/*.c -o openpas.exe -Iinclude -Llib/windows -lraylib -lgdi32 -lwinmm
+gcc main.c modules/src/*.c -o openpas.exe -Iinclude -Llib/windows -lraylib -lwinmm -lgdi32
+```
+For VMs:
+```
+gcc main.c modules/src/*.c -o openpas.exe -Iinclude -Llib/windows -lraylib -lwinmm -lgdi32 -lopengl32
 ```
