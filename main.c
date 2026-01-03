@@ -17,6 +17,10 @@
 #include "modules/platform.h"
 #include "modules/check-and-set.h"
 #include "modules/cursor.h"
+
+#include "modules/subatomic.h"
+
+#include "config.h"
 bool check_platform() {
 	#ifdef __linux__ 
 		printf("[!] Initial Linux check passed. [ Proceed ]\n");
@@ -49,8 +53,11 @@ int main() {
 	while (!IsKeyPressed(KEY_END)) {
 	Vector2 mouse_pos = GetMousePosition();		// while we are still in the game, keep fetching the current mouse position
 		BeginDrawing();
-		ClearBackground(WHITE);
+		ClearBackground(DARKGRAY);
 
+		draw_proton(CENTER_X, CENTER_Y);
+		draw_neutron(CENTER_X + 20, CENTER_Y);
+		draw_electron(CENTER_X + 40, CENTER_Y);
 		draw_cursor((int)mouse_pos.x, (int)mouse_pos.y);	// draw the cursor, cast the flaot values so it does not get corrupted
 		EndDrawing();
 	}
