@@ -28,15 +28,15 @@ bool check_platform() {
 	#else 
 		// If we are NOT on Linux, this code is "seen" instead
 		printf("==============================================================\n");
-		printf("[!] ERROR: OS NOT SUPPORTED!\n");
+		printf("[!] Warning: Non-Linux OS detected. Performance may vary.\n");
 		printf("OpenPAS v0.07| (c) 2026 Ronald Nidera | Licensed under GPL v3\n\n");
 		printf("==============================================================\n");
         printf("OpenPAS V0.07 is currently optimized for Linux (Ubuntu/Debian).\n");
-        printf("Press [ENTER] TWICE to exit\n");
+        printf("Press [ENTER] TWICE to continue\n\n\n");
 
         while (getchar() != '\n');
         getchar();		// wait until a key is pressed (ENTER)
-        return false;
+        return true;
     #endif
 }
 
