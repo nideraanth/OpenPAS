@@ -29,9 +29,9 @@ bool check_platform() {
 		// If we are NOT on Linux, this code is "seen" instead
 		printf("==============================================================\n");
 		printf("[!] Warning: Non-Linux OS detected. Performance may vary.\n");
-		printf("OpenPAS v0.07| (c) 2026 Ronald Nidera | Licensed under GPL v3\n\n");
+		printf("OpenPAS v0.17| (c) 2026 Ronald Nidera | Licensed under GPL v3\n\n");
 		printf("==============================================================\n");
-        printf("OpenPAS V0.07 is currently optimized for Linux (Ubuntu/Debian).\n");
+        printf("OpenPAS V0.17 is currently optimized for Linux (Ubuntu/Debian).\nand Windows x86-64 with w64devkit\n");
         printf("Press [ENTER] TWICE to continue\n\n\n");
 
         while (getchar() != '\n');
@@ -45,10 +45,11 @@ int main() {
 
 	printf("\n=============================================================\n");
 	printf("Welcome to OpenPPS!\n");
-	printf("OpenPAS v0.07| (c) 2026 Ronald Nidera | Licensed under GPL v3\n");
+	printf("OpenPAS v0.17| (c) 2026 Ronald Nidera | Licensed under GPL v3\n");
 
 	check_and_set();
-	printf("\n[!] Starting game loop...\n");
+	printf("\nPress [END] to exit\n");
+	printf("[!] Starting game loop...\n");
 
 	while (!IsKeyPressed(KEY_END)) {
 	Vector2 mouse_pos = GetMousePosition();		// while we are still in the game, keep fetching the current mouse position
