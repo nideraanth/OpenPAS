@@ -35,6 +35,6 @@ typedef struct {
 } Atom; // Capitalized for consistency
 
 void update_particle(Atom *a, float delta);
-void draw_particle(Atom a);
+void draw_particle(Atom *a);
 
 #endif

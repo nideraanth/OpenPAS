@@ -30,9 +30,9 @@ bool check_platform() {
 		// If we are NOT on Linux, this code is "seen" instead
 		printf("==============================================================\n");
 		printf("[!] Warning: Non-Linux OS detected. Performance may vary.\n");
-		printf("OpenPAS v0.17| (c) 2026 Ronald Nidera | Licensed under GPL v3\n\n");
+		printf("OpenPAS v%.2f| (c) 2026 Ronald Nidera | Licensed under GPL v3\n\n", PROGRAM_VERSION);
 		printf("==============================================================\n");
-        printf("OpenPAS V0.17 is currently optimized for Linux (Ubuntu/Debian).\nand Windows x86-64 with w64devkit\n");
+        printf("OpenPAS V%.2f is currently optimized for Linux (Ubuntu/Debian).\nand Windows x86-64 with w64devkit\n", PROGRAM_VERSION);
         printf("Press [ENTER] TWICE to continue\n\n\n");
 
         while (getchar() != '\n');
@@ -45,8 +45,8 @@ int main() {
 	if (!check_platform()) { return 1; }	// check if we are on Linux, if not, go back to check_platform()'s else section
 
 	printf("\n=============================================================\n");
-	printf("Welcome to OpenPPS!\n");
-	printf("OpenPAS v0.17| (c) 2026 Ronald Nidera | Licensed under GPL v3\n");
+	printf("Welcome to OpenPAS!\n");
+	printf("OpenPAS v%.2f| (c) 2026 Ronald Nidera | Licensed under GPL v3\n", PROGRAM_VERSION);
 
 	printf("\n\n[ PROGRAM READY! ] .. Press [ENTER] twice.");
 	while (getchar() != '\n');
@@ -54,9 +54,9 @@ int main() {
 
 
 	check_and_set();
-	Atom a1 = {{990, 400}, 50.0f, 0.0f, 5.0f, 12, 2, 0};
-	Atom a2 = {{250, 700}, 50.0f, 0.0f, 5.0f, 12, 3, 0};
-
+	Atom a1 = {{990, 400}, 50.0f, 0.0f, 5.0f, 3, 1, 1};
+	Atom a2 = {{250, 700}, 50.0f, 0.0f, 5.0f, 3, 1, 1};
+											// E, P, N
 	printf("\nPress [END] to exit\n");
 	printf("[!] Starting game loop...\n");
 	
@@ -68,12 +68,13 @@ int main() {
 		BeginDrawing();
 		ClearBackground(DARKGRAY);
 
+		DrawText(TextFormat("OpenPAS v%.2f", PROGRAM_VERSION), 0, 0, 20, RAYWHITE);
 		draw_proton(CENTER_X, CENTER_Y);
 		draw_neutron(CENTER_X + 20, CENTER_Y);
 		draw_electron(CENTER_X + 40, CENTER_Y);
 
-		draw_particle(a1);
-		draw_particle(a2);
+		draw_particle(&a1);
+		draw_particle(&a2);
 		draw_cursor((int)mouse_pos.x, (int)mouse_pos.y);	// draw the cursor, cast the flaot values so it does not get corrupted
 		EndDrawing();
 	}

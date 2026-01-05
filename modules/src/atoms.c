@@ -16,6 +16,7 @@
 #include <math.h>
 #include "raylib.h"
 
+#include "../../config.h"
 #include "../subatomic.h"
 #include "../atoms.h"
 
@@ -39,25 +40,45 @@ const char* name[] = {
     "Oxygen", "Flurine", "Neon", "Sodium", "Magnesium", "Aluminum", "Silicon",
     "Phosporus", "Sulfur", "Chlorine", "Argon", "Potassium", "Calcium", "Scandium"
 };
+void draw_particle_outline (int x, int y) {
+    DrawCircleLines(x, y, PROTON_RAD + 1, BLACK);
+}
 void update_particle(Atom *a, float delta) {
     a->electron_angle += a->orbit_speed * delta;
     if (a->electron_angle > 2 * PI) a->electron_angle -= 2 * PI;
 }
 
-void draw_particle(Atom a) {
-    for (int quant = 0; quant <= a.proton_count; quant++) {
-        float offset_x = sinf(quant * 1.0f) * 5.0f;
-        float offset_y = sinf(quant * 1.0f) * 5.0f;
-        draw_proton((int)a.center.x, (int)a.center.y); 
+void draw_particle(Atom *a) {
+// protons here dude
+    for (int i = 0; i < a->proton_count; i++) {
+        // Use 2.4f (approx 137.5 degrees) for uniform distribution
+        float px = a->center.x + sinf(i * 2.4f) * 10.0f; 
+        float py = a->center.y + cosf(i * 2.4f) * 10.0f;
+
+        draw_particle_outline((int)px, (int)py);
+        draw_proton((int)px, (int)py);
     }
-    // note: it is Fade(), not FADE() nor fade()
-    DrawCircleLinesV(a.center, a.orbit_radius, Fade(GRAY, 0.3f)); // orbit path
+
+// neutrons here dude
+    for (int i = 0; i < a->neutron_count; i++) {
+        // Use an offset (+1.0) so neutrons fill the gaps
+        float nx = a->center.x + sinf((i + 1.0f) * 2.4f) * 10.0f;
+        float ny = a->center.y + cosf((i + 1.0f) * 2.4f) * 10.0f;
+
+        draw_particle_outline((int)nx, (int)ny);
+        draw_neutron((int)nx, (int)ny);
+    }
+
+    // electrons here
+    DrawCircleLinesV(a->center, a->orbit_radius, Fade(GRAY, 0.4f)); // orbit path
                                                             // DrawCircleV(ePos, 4, BLUE); (REFERENCE)
-    for (int count = 0; count < a.electron_count; count++) {
-        float individual_angle = a.electron_angle + cosf(individual_angle) * a.orbit_radius;
+    for (int count = 0; count < a->electron_count; count++) {
+        float spacing = (2.0f * PI / a->electron_count) * count;
+        float current_angle = a->electron_angle + spacing;
+
         Vector2 electron_pos = {
-            a.center.x + cosf(a.electron_angle) * a.orbit_radius,
-            a.center.y + sinf(a.electron_angle) * a.orbit_radius
+            a->center.x + cosf(current_angle) * a->orbit_radius,
+            a->center.y + sinf(current_angle) * a->orbit_radius
         };
 
         draw_electron((int)electron_pos.x, (int)electron_pos.y);
