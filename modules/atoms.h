@@ -11,16 +11,30 @@
  * give credit to the original author: Ronald Nidera.                          *
  *******************************************************************************/
 
+
+#ifndef ATOMS_H
+#define ATOMS_H
+
 #include "raylib.h"
 
-#include "../cursor.h"
+typedef struct {
+    Vector2 center;
+    const char* element_symbol;
+    const char* name;
+} Element;
 
-void draw_cursor(int x, int y) {
-	int size = 60;
-	DrawLine(x, y, x + size, y, WHITE);
-	DrawLine(x, y, x, y + size, WHITE);
+typedef struct {
+    Vector2 center;
+    float orbit_radius;
+    float electron_angle;
+    float orbit_speed;
 
-	for (int i = -1; i < size * 1.25; i++) {
-		DrawPixel(x + i, y + i, WHITE);
-	}
-}
+    int electron_count;
+    int proton_count;
+    int neutron_count;
+} Atom; // Capitalized for consistency
+
+void update_particle(Atom *a, float delta);
+void draw_particle(Atom a);
+
+#endif

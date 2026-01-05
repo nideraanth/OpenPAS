@@ -19,6 +19,7 @@
 #include "modules/cursor.h"
 
 #include "modules/subatomic.h"
+#include "modules/atoms.h"
 
 #include "config.h"
 bool check_platform() {
@@ -47,18 +48,32 @@ int main() {
 	printf("Welcome to OpenPPS!\n");
 	printf("OpenPAS v0.17| (c) 2026 Ronald Nidera | Licensed under GPL v3\n");
 
+	printf("\n\n[ PROGRAM READY! ] .. Press [ENTER] twice.");
+	while (getchar() != '\n');
+	getchar();
+
+
 	check_and_set();
+	Atom a1 = {{990, 400}, 50.0f, 0.0f, 5.0f, 12, 2, 0};
+	Atom a2 = {{250, 700}, 50.0f, 0.0f, 5.0f, 12, 3, 0};
+
 	printf("\nPress [END] to exit\n");
 	printf("[!] Starting game loop...\n");
-
+	
 	while (!IsKeyPressed(KEY_END)) {
 	Vector2 mouse_pos = GetMousePosition();		// while we are still in the game, keep fetching the current mouse position
+
+		update_particle(&a1, GetFrameTime());
+		update_particle(&a2, GetFrameTime());
 		BeginDrawing();
 		ClearBackground(DARKGRAY);
 
 		draw_proton(CENTER_X, CENTER_Y);
 		draw_neutron(CENTER_X + 20, CENTER_Y);
 		draw_electron(CENTER_X + 40, CENTER_Y);
+
+		draw_particle(a1);
+		draw_particle(a2);
 		draw_cursor((int)mouse_pos.x, (int)mouse_pos.y);	// draw the cursor, cast the flaot values so it does not get corrupted
 		EndDrawing();
 	}
