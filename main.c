@@ -65,10 +65,12 @@ int main() {
 
 		update_particle(&a1, GetFrameTime());
 		update_particle(&a2, GetFrameTime());
+
 		BeginDrawing();
 		ClearBackground(DARKGRAY);
 
-		DrawText(TextFormat("OpenPAS v%.2f", PROGRAM_VERSION), 0, 0, 20, RAYWHITE);
+		DrawText(TextFormat("OpenPAS v%.2f\n", PROGRAM_VERSION), 0, 0, 17, RAYWHITE);
+		DrawText(TextFormat("X: %i    Y: %i\n", (int)mouse_pos.x, (int)mouse_pos.y), 0, 25, 15, RAYWHITE);
 		draw_proton(CENTER_X, CENTER_Y);
 		draw_neutron(CENTER_X + 20, CENTER_Y);
 		draw_electron(CENTER_X + 40, CENTER_Y);
