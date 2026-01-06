@@ -1,5 +1,5 @@
 /*******************************************************************************
- * OpenPAS (Open Portable Atomic-Chemistry Simulator)                          *
+ * OpenPAS (OpenSource Portable Atomic-Chemistry Simulator)                    *
  * Copyright (C) 2026 Ronald Nidera                                            *
  * *
  * This program is free software: you can redistribute it and/or modify        *
@@ -15,14 +15,20 @@
 #define CONFIG_H
 
 #define PROGRAM_TITLE "OpenPAS"
-#define PROGRAM_VERSION 1.03
+#define PROGRAM_VERSION 1.15
 
 #define DEFAULT_RESOLUTION_HORIZONTAL 1280
 #define DEFAULT_RESOLUTION_VERTICAL 800
 
+#define RESOLUTION_SAFEMODE_X 640
+#define RESOLUTION_SAFEMODE_Y 480
+
 #define DEFAULT_TRACE_LOG_LEVEL LOG_WARNING
 #define HIDE_CURSOR true
 #define DEFAULT_FRAMERATE 60
+
+#define MAX_ATOMS 100
+#define CURRENTLY_ADDED_ATOMS 116 // AVOID HAVING AN EXTRA BYTE. LIKE IF YOU HAVE 10 VALUES THAT START WITH 0, DONT USE 10. CAUSES HANG
 
 // --- Physical Radii ---
 #define PROTON_RAD 10.0f
@@ -44,5 +50,11 @@
 #define TEXT_SIZE 20
 #define CENTER_X (DEFAULT_RESOLUTION_HORIZONTAL / 2)
 #define CENTER_Y (DEFAULT_RESOLUTION_VERTICAL / 2)
+
+#define SAFE_BOTTOM (RESOLUTION_SAFEMODE_Y - 1)
+#define SAFE_RIGHT (RESOLUTION_SAFEMODE_X - 1)
+
+#define BOTTOM (DEFAULT_RESOLUTION_VERTICAL - 1)
+#define RIGHT (DEFAULT_RESOLUTION_HORIZONTAL - 1)
 
 #endif

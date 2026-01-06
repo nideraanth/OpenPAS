@@ -1,5 +1,5 @@
 /*******************************************************************************
- * OpenPAS (Open Portable Atomic-Chemistry Simulator)                          *
+ * OpenPAS (OpenSource Portable Atomic-Chemistry Simulator)                    *
  * Copyright (C) 2026 Ronald Nidera                                            *
  * *
  * This program is free software: you can redistribute it and/or modify        *
@@ -14,6 +14,6 @@
 #ifndef CHECKANDSET_H
 #define CHECKANDSET_H
 
-void check_and_set(void);
+void check_and_set(bool is_safemode);
 
 #endif

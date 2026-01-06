@@ -1,5 +1,5 @@
 /*******************************************************************************
- * OpenPAS (Open Portable Atomic-Chemistry Simulator)                          *
+ * OpenPAS (OpenSource Portable Atomic-Chemistry Simulator)                    *
  * Copyright (C) 2026 Ronald Nidera                                            *
  * *
  * This program is free software: you can redistribute it and/or modify        *
@@ -36,5 +36,6 @@ typedef struct {
 
 void update_particle(Atom *a, float delta);
 void draw_particle(Atom *a);
+void spawn_element(Atom *a, int id, Vector2 element_center);
 
 #endif

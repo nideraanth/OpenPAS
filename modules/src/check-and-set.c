@@ -1,5 +1,5 @@
 /*******************************************************************************
- * OpenPAS (Open Portable Atomic-Chemistry Simulator)                          *
+ * OpenPAS (OpenSource Portable Atomic-Chemistry Simulator)                    *
  * Copyright (C) 2026 Ronald Nidera                                            *
  * *
  * This program is free software: you can redistribute it and/or modify        *
@@ -17,7 +17,7 @@
 #include "../check-and-set.h"
 
 #include "../../config.h"
-void check_and_set(void) {
+void check_and_set(bool is_safemode) {
 	printf("=============================================");
 	printf("\nOpenPPS 'check_and_set' program     [ DEBUG ]\n");
 
@@ -26,8 +26,16 @@ void check_and_set(void) {
 	SetTraceLogLevel(DEFAULT_TRACE_LOG_LEVEL);
 	printf("   [  OK  ]");
 	
-	printf("\nSetting resolution (%ix%i)...", DEFAULT_RESOLUTION_HORIZONTAL, DEFAULT_RESOLUTION_VERTICAL);
-	InitWindow(DEFAULT_RESOLUTION_HORIZONTAL, DEFAULT_RESOLUTION_VERTICAL, "OpenPPS");
+	if (is_safemode == false) {
+	printf("\nSetting resolution (%ix%i)...\n", DEFAULT_RESOLUTION_HORIZONTAL, DEFAULT_RESOLUTION_VERTICAL);
+	InitWindow(DEFAULT_RESOLUTION_HORIZONTAL, DEFAULT_RESOLUTION_VERTICAL, "OpenPAS");
+	printf("     [  OK  ]\n"); //   11
+	}
+	else {
+		printf("[SafeMode]: Setting resolution (%ix%i)\n", RESOLUTION_SAFEMODE_X, RESOLUTION_SAFEMODE_Y);
+		InitWindow(RESOLUTION_SAFEMODE_X, RESOLUTION_SAFEMODE_Y, "[SafeMode] OpenPAS");
+		printf("     [  OK  ]\n");
+	}
 	if (!IsWindowReady()) {
 		printf("     [ FAIL ]\n");
 		printf("Error: OpenGL / WGL driver failed to initialize! \n");
@@ -38,7 +46,6 @@ void check_and_set(void) {
         getchar();
 		return;
 	}
-	printf("     [  OK  ]\n"); //   11
 	
 	printf("Setting target framerate [%i]...", DEFAULT_FRAMERATE);
 	SetTargetFPS(DEFAULT_FRAMERATE);
@@ -50,4 +57,8 @@ void check_and_set(void) {
 		printf("                     [  OK  ]\n");
 	} else { printf("                     [ FAIL ] Check 'HIDE_CURSOR' in config.h\n");}
 	printf("=============================================\n");
+}
+
+void set_res(int *choice) {
+
 }

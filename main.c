@@ -1,5 +1,5 @@
 /*******************************************************************************
- * OpenPAS (Open Portable Atomic-Chemistry Simulator)                          *
+ * OpenPAS (OpenSource Portable Atomic-Chemistry Simulator)                    *
  * Copyright (C) 2026 Ronald Nidera                                            *
  * *
  * This program is free software: you can redistribute it and/or modify        *
@@ -43,41 +43,74 @@ bool check_platform() {
 
 int main() {
 	if (!check_platform()) { return 1; }	// check if we are on Linux, if not, go back to check_platform()'s else section
+	int resolution_choice = 0;
+	bool is_safemode = false;
 
 	printf("\n=============================================================\n");
 	printf("Welcome to OpenPAS!\n");
 	printf("OpenPAS v%.2f| (c) 2026 Ronald Nidera | Licensed under GPL v3\n", PROGRAM_VERSION);
 
+	printf("\n Graphics modes: \n 1. Normal mode\n2. Safe mode (640x480 @ 60hz)\n");
+	printf("Choice --> ");
+	scanf("%i", &resolution_choice);
+
+	if (resolution_choice == 2) {
+		is_safemode = true;
+	}
+
 	printf("\n\n[ PROGRAM READY! ] .. Press [ENTER] twice.");
 	while (getchar() != '\n');
 	getchar();
+	check_and_set(is_safemode);
 
-
-	check_and_set();
-	Atom a1 = {{990, 400}, 50.0f, 0.0f, 5.0f, 3, 1, 1};
-	Atom a2 = {{250, 700}, 50.0f, 0.0f, 5.0f, 3, 1, 1};
+	Atom a1 = {{990, 400}, 50.0f, 0.0f, 5.0f, 6, 6, 6};
+	Atom a2 = {{250, 700}, 50.0f, 0.0f, 5.0f, 6, 7, 3};
 											// E, P, N
+
+	Atom atoms[MAX_ATOMS];
+	unsigned int selected_id = 0;
+	extern int atoms_count;
+
 	printf("\nPress [END] to exit\n");
 	printf("[!] Starting game loop...\n");
 	
 	while (!IsKeyPressed(KEY_END)) {
 	Vector2 mouse_pos = GetMousePosition();		// while we are still in the game, keep fetching the current mouse position
 
+		if (IsKeyPressed(KEY_F1)) {
+			selected_id++;
+			if (selected_id > CURRENTLY_ADDED_ATOMS) {
+				selected_id = 0; 					// switch back to zero
+			}
+		}
+		if (IsMouseButtonPressed(MOUSE_RIGHT_BUTTON)) {
+			spawn_element(atoms, selected_id, GetMousePosition());
+		}
+
+
 		update_particle(&a1, GetFrameTime());
 		update_particle(&a2, GetFrameTime());
+		for (int i = 0; i < atoms_count; i++) { update_particle(&atoms[i], GetFrameTime()); }
+
 
 		BeginDrawing();
 		ClearBackground(DARKGRAY);
 
 		DrawText(TextFormat("OpenPAS v%.2f\n", PROGRAM_VERSION), 0, 0, 17, RAYWHITE);
 		DrawText(TextFormat("X: %i    Y: %i\n", (int)mouse_pos.x, (int)mouse_pos.y), 0, 25, 15, RAYWHITE);
+		DrawText("(c) 2026 Ronald Nidera | Licensed under GPL v3", 0, 40, 15, DARKGREEN);
+		DrawText(TextFormat("Current element: %i \n(By atomic number)\n", (int)selected_id), 0, 60, 15, RED);
+
 		draw_proton(CENTER_X, CENTER_Y);
 		draw_neutron(CENTER_X + 20, CENTER_Y);
 		draw_electron(CENTER_X + 40, CENTER_Y);
 
 		draw_particle(&a1);
 		draw_particle(&a2);
+
+		for (int i = 0; i < atoms_count; i++) { draw_particle(&atoms[i]); } // draw atoms
 		draw_cursor((int)mouse_pos.x, (int)mouse_pos.y);	// draw the cursor, cast the flaot values so it does not get corrupted
+
 		EndDrawing();
 	}
 	
